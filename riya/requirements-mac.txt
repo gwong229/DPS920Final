@@ -1,0 +1,10 @@
+opencv-python==4.9.0.80
+pillow==10.2.0
+pandas==2.1.4
+matplotlib==3.8.2
+scikit-learn==1.4.0
+flask==2.2.5
+python-socketio==4.6.1
+python-engineio==3.13.2
+eventlet==0.33.3
+dnspython==2.6.1
