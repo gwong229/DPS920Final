@@ -27,6 +27,19 @@ def adjust_brightness(image):
 
     return image
 
+def random_translate(image, steering, max_shift=40, angle_per_pixel=0.004):
+    height, width = image.shape[:2]
+
+    x_shift = random.randint(-max_shift, max_shift)
+    y_shift = random.randint(-10, 10)  # small vertical jitter for robustness
+
+    # Adjust steering proportionally to how far we shifted horizontally.
+    steering = steering + (x_shift * angle_per_pixel)
+
+    M = np.float32([[1, 0, x_shift], [0, 1, y_shift]])
+    image = cv2.warpAffine(image, M, (width, height))
+
+    return image, steering
 
 def random_zoom(image):
     if random.random() < 0.3:
@@ -49,8 +62,8 @@ def random_zoom(image):
 
 
 def augment(image, steering):
-
     image, steering = flip_image(image, steering)
+    image, steering = random_translate(image, steering)
     image = adjust_brightness(image)
     image = random_zoom(image)
 
@@ -63,23 +76,13 @@ def preprocess_image(image):
     image = image[60:135, :, :]
 
     # Convert RGB -> YUV
-    image = cv2.cvtColor(
-        image,
-        cv2.COLOR_RGB2YUV
-    )
+    image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
 
     # Nvidia input size
-    image = cv2.resize(
-        image,
-        (200,66)
-    )
+    image = cv2.resize(image, (200,66))
 
     # Blur
-    image = cv2.GaussianBlur(
-        image,
-        (3,3),
-        0
-    )
+    image = cv2.GaussianBlur(image,(3,3),0)
 
     # Normalize
     image = image / 255.0
