@@ -10,11 +10,9 @@ def flip_image(image, steering):
         
     return image, steering
 
-
 def adjust_brightness(image):
     if random.random() < 0.5:
         hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
-
         brightness = random.uniform(0.3, 1.2)
 
         hsv[:, :, 2] = np.clip(
@@ -45,7 +43,6 @@ def random_zoom(image):
     if random.random() < 0.3:
 
         height, width = image.shape[:2]
-
         crop = random.uniform(0.8, 1.0)
 
         new_h = int(height * crop)
@@ -55,7 +52,6 @@ def random_zoom(image):
         x = random.randint(0, width-new_w)
 
         image = image[y:y+new_h, x:x+new_w]
-
         image = cv2.resize(image, (width, height))
 
     return image
@@ -71,19 +67,14 @@ def augment(image, steering):
 
 # Model preprocessing
 def preprocess_image(image):
-
     # Crop road area
     image = image[60:135, :, :]
-
     # Convert RGB -> YUV
     image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
-
     # Nvidia input size
     image = cv2.resize(image, (200,66))
-
     # Blur
     image = cv2.GaussianBlur(image,(3,3),0)
-
     # Normalize
     image = image / 255.0
 
