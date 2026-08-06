@@ -1,4 +1,4 @@
-# Self-Driving Car Simulation (Behavioral Cloning) - Project Documentation
+# Self-Driving Car Simulation - Project Documentation
 
 ## Approach
 This project teaches a car to drive itself, using nothing but images from its front
