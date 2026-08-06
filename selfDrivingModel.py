@@ -5,7 +5,6 @@ from sklearn.model_selection import train_test_split
 from preProcessing import augment, preprocess_image
 from model import create_model
 
-
 # Load dataset
 data = pd.read_csv(
     "data/driving_log_fixed.csv",

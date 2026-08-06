@@ -1,10 +1,7 @@
 from keras import Sequential, layers
 
-
 def create_model():
-
     model = Sequential()
-
 
     # Input: 3@66x200
     # Output: 24@31x98
